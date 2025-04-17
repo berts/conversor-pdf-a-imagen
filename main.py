@@ -8,19 +8,9 @@ from pathlib import Path
 import shutil
 import logging
 
-# Instalación automática de dependencias
-def instalar_dependencias():
-    import importlib.util
-    def instalar_paquete(paquete):
-        subprocess.check_call([sys.executable, "-m", "pip", "install", paquete])
-    paquetes = ["pdf2image", "Pillow"]
-    for paquete in paquetes:
-        if importlib.util.find_spec(paquete) is None:
-            instalar_paquete(paquete)
 
-instalar_dependencias()
 
-from pdf2image import convert_from_path
+import fitz  # PyMuPDF
 from PIL import Image
 
 # Configuración del log
@@ -31,11 +21,10 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
-# GUI principal
 class PDFtoImageApp:
     def __init__(self, master):
         self.master = master
-        master.title("Conversor de PDF a Imágenes")
+        master.title("Conversor de PDF a Imágenes (sin Poppler)")
 
         self.textbox = scrolledtext.ScrolledText(master, width=80, height=20)
         self.textbox.pack(padx=10, pady=10)
@@ -99,11 +88,14 @@ class PDFtoImageApp:
             for pdf in pdfs:
                 self.log(f"Procesando: {pdf.name}")
                 try:
-                    paginas = convert_from_path(str(pdf))
-                    for i, pagina in enumerate(paginas, start=1):
+                    doc = fitz.open(str(pdf))
+                    for i, page in enumerate(doc, start=1):
+                        pix = page.get_pixmap()
                         nombre_imagen = salida / f"{pdf.stem}_p{i}.{extension}"
-                        pagina.save(nombre_imagen, formato)
+                        img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+                        img.save(nombre_imagen, formato)
                         self.log(f" - Página {i} guardada como {nombre_imagen.name}")
+                    doc.close()
                     correctos += 1
                 except Exception as e:
                     fallidos += 1
@@ -120,7 +112,6 @@ class PDFtoImageApp:
         self.log("Conversión finalizada.")
         self.log(f"Resumen: {correctos} PDF(s) procesados correctamente, {fallidos} con errores.")
 
-# Lanzar GUI
 if __name__ == "__main__":
     root = tk.Tk()
     app = PDFtoImageApp(root)

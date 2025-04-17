@@ -1,0 +1,14 @@
+2025-04-17 22:26:55,747 - INFO - Aplicación iniciada correctamente.
+2025-04-17 22:26:59,497 - INFO - No se encontraron archivos PDF en la carpeta de entrada.
+2025-04-17 22:27:32,496 - INFO - Aplicación iniciada correctamente.
+2025-04-17 22:27:36,067 - INFO - Procesando: FacturaSencilla.pdf
+2025-04-17 22:27:36,169 - ERROR - PDF no procesado: FacturaSencilla.pdf — Unable to get page count. Is poppler installed and in PATH?
+2025-04-17 22:27:36,213 - INFO -    \u2192 Copiado a carpeta de errores: errores\FacturaSencilla.pdf
+2025-04-17 22:27:36,215 - INFO - Conversión finalizada.
+2025-04-17 22:27:36,218 - INFO - Resumen: 0 PDF(s) procesados correctamente, 1 con errores.
+2025-04-17 22:31:23,658 - INFO - Aplicación iniciada correctamente.
+2025-04-17 22:31:27,102 - INFO - No se encontraron archivos PDF en la carpeta de entrada.
+2025-04-17 22:31:57,427 - INFO - Procesando: FacturaSencilla.pdf
+2025-04-17 22:31:58,133 - INFO -  - Página 1 guardada como FacturaSencilla_p1.png
+2025-04-17 22:31:58,138 - INFO - Conversión finalizada.
+2025-04-17 22:31:58,140 - INFO - Resumen: 1 PDF(s) procesados correctamente, 0 con errores.
