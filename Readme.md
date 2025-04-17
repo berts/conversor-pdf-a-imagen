@@ -1,32 +1,50 @@
 # Convertidor de PDF a Imágenes
 
-Una aplicación en Python que convierte archivos PDF en imágenes utilizando las bibliotecas PyMuPDF (`fitz`) y Pillow (`PIL`). La aplicación incluye una interfaz gráfica de usuario (GUI) construida con Tkinter para facilitar su uso. Además, permite procesar automáticamente todos los archivos PDF en una carpeta definida en la configuración.
+Aplicación de escritorio en Windows para la conversión de archivos PDF a imágenes, desarrollada en Python y empaquetada como ejecutable autónomo. Utiliza las bibliotecas PyMuPDF (`fitz`) y Pillow (`PIL`), con una interfaz gráfica basada en Tkinter.
 
-## Características
-- Convierte páginas de archivos PDF a imágenes.
-- Procesa automáticamente todos los archivos PDF en una carpeta configurada.
-- Interfaz gráfica amigable con un área de texto desplazable para mostrar mensajes o registros.
-- Sistema de registro (logging) para rastrear las actividades de conversión.
-- Distribuida como un ejecutable (`main.exe`) para facilitar su uso sin necesidad de instalar Python.
+## Funcionalidades principales
 
-## Requisitos
-- Sistema operativo Windows.
-- No se requiere instalación de Python ni dependencias adicionales, ya que la aplicación está empaquetada como un ejecutable.
+- Conversión automática de todas las páginas de archivos PDF a imágenes.
+- Procesamiento en lote de todos los documentos ubicados en una carpeta definida por el usuario.
+- Interfaz gráfica con área de registros en tiempo real.
+- Registro detallado de actividad (`conversion.log`), con información sobre archivos procesados y errores detectados.
+- Compatible con formatos de imagen comunes: PNG, JPG, TIFF, BMP, entre otros.
+- No requiere instalación de Python ni dependencias en el equipo del usuario final.
+
+## Requisitos del sistema
+
+- Sistema operativo: Windows 10 o superior.
+- No se requiere instalación previa de Python ni bibliotecas externas.  
+  La aplicación se distribuye como ejecutable (`main.exe`) listo para su uso.
 
 ## Instalación
-1. Descarga el archivo ZIP desde el repositorio o la página de distribución.
-2. Extrae el contenido del archivo ZIP en una carpeta de tu elección.
+
+1. Descargue el archivo `.zip` desde el sitio de distribución.
+2. Extraiga el contenido en una carpeta de su elección.
+3. Asegúrese de contar con permisos de escritura en la carpeta de salida definida en el archivo `config.ini`.
 
 ## Uso
-1. Navega a la carpeta donde extrajiste el contenido del ZIP.
-2. Ejecuta el archivo `main.exe` haciendo doble clic.
-3. La aplicación procesará automáticamente todos los archivos PDF que se encuentren en la carpeta definida en el archivo de configuración (`config`).
-4. Los resultados de la conversión se guardarán en la carpeta de salida especificada en la configuración.
 
-### Manejo de errores y éxitos
-- Si un archivo PDF se procesa correctamente, se registrará como un éxito en el archivo `conversion.log`.
-- Si ocurre un error durante el procesamiento de un archivo, el error también se registrará en `conversion.log` para facilitar la depuración.
-- Asegúrate de revisar el archivo `conversion.log` para obtener detalles sobre los archivos procesados y cualquier problema encontrado.
+1. Ejecute `main.exe` mediante doble clic.
+2. La aplicación leerá automáticamente el archivo `config.ini`, que debe contener al menos las siguientes rutas:
+   ```
+   [RUTAS]
+   entrada = ./pdfs
+   salida = ./imagenes
 
-## Registro
-Los registros de las conversiones se guardan en el archivo `conversion.log` en la misma carpeta donde se encuentra el ejecutable.
+   [OPCIONES]
+   formato_salida = PNG
+   carpeta_errores = ./errores
+   ```
+3. Todos los archivos PDF ubicados en la carpeta definida en `entrada` serán procesados automáticamente.
+4. Las imágenes generadas se guardarán en la ruta definida en `salida`.  
+   Los archivos que no puedan ser procesados serán movidos a `carpeta_errores`.
+
+## Gestión de errores
+
+- Los errores de conversión se registran en el archivo `conversion.log`.
+- En caso de error en un archivo PDF concreto, se intentará mover el documento a la carpeta definida como `carpeta_errores` para su posterior análisis.
+
+## Registro de actividad
+
+La aplicación genera un archivo de log (`conversion.log`) en el mismo directorio que el ejecutable, con información de diagnóstico y seguimiento de cada conversión realizada.
