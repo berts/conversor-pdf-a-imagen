@@ -10,6 +10,7 @@ Aplicación de escritorio en Windows para la conversión de archivos PDF a imág
 - Registro detallado de actividad (`conversion.log`), con información sobre archivos procesados y errores detectados.
 - Compatible con formatos de imagen comunes: PNG, JPG, TIFF, BMP, entre otros.
 - No requiere instalación de Python ni dependencias en el equipo del usuario final.
+- Se peude configurar para que saque solo la primera página o todas las páginas del PDF a imagen
 
 ## Requisitos del sistema
 
@@ -35,6 +36,8 @@ Aplicación de escritorio en Windows para la conversión de archivos PDF a imág
    [OPCIONES]
    formato_salida = PNG
    carpeta_errores = ./errores
+   # opciones válidas: 'todas' o 'primera'
+   modo_extraccion = primera 
    ```
 3. Todos los archivos PDF ubicados en la carpeta definida en `entrada` serán procesados automáticamente.
 4. Las imágenes generadas se guardarán en la ruta definida en `salida`.  

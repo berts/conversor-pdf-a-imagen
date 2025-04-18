@@ -89,12 +89,14 @@ class PDFtoImageApp:
                 self.log(f"Procesando: {pdf.name}")
                 try:
                     doc = fitz.open(str(pdf))
-                    for i, page in enumerate(doc, start=1):
-                        pix = page.get_pixmap()
-                        nombre_imagen = salida / f"{pdf.stem}_p{i}.{extension}"
-                        img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-                        img.save(nombre_imagen, formato)
-                        self.log(f" - Página {i} guardada como {nombre_imagen.name}")
+                    modo = config['OPCIONES'].get('modo_extraccion', 'todas').lower()
+                    paginas = [doc[0]] if modo == 'primera' else list(doc)
+                    for i, page in enumerate(paginas, start=1):
+                     pix = page.get_pixmap()
+                    nombre_imagen = salida / f"{pdf.stem}_p{i}.{extension}"
+                    img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+                    img.save(nombre_imagen, formato)
+                    self.log(f" - Página {i} guardada como {nombre_imagen.name}")
                     doc.close()
                     correctos += 1
                 except Exception as e:
