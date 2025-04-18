@@ -48,6 +48,17 @@ Aplicación de escritorio en Windows para la conversión de archivos PDF a imág
 - Los errores de conversión se registran en el archivo `conversion.log`.
 - En caso de error en un archivo PDF concreto, se intentará mover el documento a la carpeta definida como `carpeta_errores` para su posterior análisis.
 
+## Consideraciones especiales
+
+### Archivos con múltiples páginas
+Cada página del PDF se convierte en una imagen independiente.  
+El nombre del archivo generado sigue la convención:  
+`nombre_del_pdf_p1.png`, `nombre_del_pdf_p2.png`, etc.
+
+### Archivos protegidos con contraseña
+La aplicación **no puede procesar archivos PDF protegidos con contraseña**.  
+Si se detecta uno, el sistema lo considera como error y mueve el archivo a la carpeta de errores, registrando el incidente en `conversion.log`.
+
 ## Registro de actividad
 
 La aplicación genera un archivo de log (`conversion.log`) en el mismo directorio que el ejecutable, con información de diagnóstico y seguimiento de cada conversión realizada.
